@@ -36,7 +36,7 @@ sensorMaxValue = 17735 #least moist
 
 #FIREBASE SETUP
 #authenticate to the database
-cred = credentials.Certificate("/home/cdrobertson/Proj/final/credentials.json")
+cred = credentials.Certificate("/home/cdrobertson/Proj/githubProject/IoTProjectSpr2024/credentials.json")
 firebase_admin.initialize_app(cred, {"databaseURL": "https://iotproject-7f9d4-default-rtdb.firebaseio.com/"})
 #create reference to root node
 rootRef = db.reference("/")
