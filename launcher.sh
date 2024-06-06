@@ -8,7 +8,7 @@ sleep 30
 
 
 cd /
-cd home/cdrobertson/Proj/final
+cd home/cdrobertson/Proj/githubProject/IoTProjectSpr2024
 
 # Activate the virtual environment
 source /home/cdrobertson/ads1115_env/bin/activate
