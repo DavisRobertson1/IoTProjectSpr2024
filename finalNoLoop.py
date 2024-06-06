@@ -27,12 +27,43 @@ def remap(value, leftMin, leftMax, rightMin, rightMax):
     # return int(rightMin + (valueScaled * rightSpan))
     return rightMin + (valueScaled * rightSpan)
 
+def sample(plant, numberOfSamples):
+    averageValue = 0
+    averageVoltage = 0
+    for i in range(0, numberOfSamples): #collect samples
+        averageValue += plant.channel.value
+        averageVoltage += plant.channel.voltage
+        time.sleep(0.05)
+    plant.value = averageValue / numberOfSamples
+    plant.voltage = averageVoltage / numberOfSamples
+    plant.percentage = remap(
+        plant.value,
+        plant.sensorMinValue, plant.sensorMaxValue,     # these values comes from experiment when wet and dry
+        100, 0
+    )
+
 
 #GLOBALS
+#get current time
+currentDateAndTime = str(datetime.now())
+year = currentDateAndTime[:4]
+month = currentDateAndTime[5:7]
+day = currentDateAndTime[8:10]
+currentTime = currentDateAndTime[11:19] #don't call this "time" it will conflict with time library
 numberOfSamples = 10
-plantID = 0
-sensorMinValue = 7750 #most moist
-sensorMaxValue = 17735 #least moist
+sensorMinValues = [7750] #most moist
+sensorMaxValues = [17725] #least moist
+class Plant:
+  def __init__(self, ID, sensorMinValue, sensorMaxValue):
+    self.ID = ID
+    self.sensorMinValue = sensorMinValue
+    self.sensorMaxValue = sensorMaxValue
+    self.channel = None
+    self.percentage = None
+    self.value = None
+    self.voltage = None
+    self.DBRef = None
+plants = [Plant(i, sensorMinValues[i], sensorMaxValues[i]) for i in range(0, len(sensorMinValues))]
 
 #FIREBASE SETUP
 #authenticate to the database
@@ -47,37 +78,19 @@ rootRef = db.reference("/")
 i2c = busio.I2C(board.SCL, board.SDA)
 # Create the ADC object using the I2C bus
 ads = ADS.ADS1115(i2c)
-# Create a single ended input on channel 0
-chan = AnalogIn(ads, ADS.P0)
-
+# Create a single ended input on each channel 0
+possibleChannelInputs = [ADS.P0, ADS.P1, ADS.P2, ADS.P3]
+plants[i].channel = AnalogIn(ads, possibleChannelInputs[i] for i in range(0, len(plants)))
 #MAIN CODE
 #collect samples and find average
-averageValue = 0
-averageVoltage = 0
-for i in range(0, numberOfSamples): #collect samples
-    averageValue += chan.value
-    averageVoltage += chan.voltage
-    time.sleep(0.05)
-averageValue /= numberOfSamples
-averageVoltage /= numberOfSamples
-
-#get current time
-currentDateAndTime = str(datetime.now())
-year = currentDateAndTime[:4]
-month = currentDateAndTime[5:7]
-day = currentDateAndTime[8:10]
-currentTime = currentDateAndTime[11:19] #don't call this "time" it will conflict with time library
-currentRef = db.reference(f"/{plantID}")
-
-#update database
-keyString = f"Value and Voltage on {month}-{day}-{year} at {currentTime}"
-valueMappedToPercentage = remap(
-    averageValue,
-    sensorMinValue, sensorMaxValue,     # these values comes from experiment when wet and dry
-    100, 0
-)
-valueTuple = [valueMappedToPercentage, averageValue, averageVoltage]
-print(keyString)
-print(valueTuple)
-currentRef.update({keyString: valueTuple}) #send keyString
-#ref.update({"testKey": [0, 1, 2, 6, 100]})
+for plant in plants:
+    sample(plant, numberOfSamples)
+    plant.DBRef = db.reference(f"/{plant.ID}")
+    #update database
+    keyString = f"Value and Voltage on {month}-{day}-{year} at {currentTime}"
+    valueList = [plant.percentage, plant.value, plant.voltage]
+    print(f"Plant ID: {plant.ID}")
+    print(plant.percentage)
+    print(plant.value)
+    print(plant.voltage)
+    plant.DBRef.update({keyString: valueList}) #send keyString
