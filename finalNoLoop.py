@@ -63,7 +63,7 @@ class Plant:
     self.value = None
     self.voltage = None
     self.DBRef = None
-plants = [Plant(i, sensorMinValues[i], sensorMaxValues[i]) for i in range(0, len(sensorMinValues))]
+plants = [Plant(i, sensorMinValues[i], sensorMaxValues[i])] for i in range(0, len(sensorMinValues))
 
 #FIREBASE SETUP
 #authenticate to the database
