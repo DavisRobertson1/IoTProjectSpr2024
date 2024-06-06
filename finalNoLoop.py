@@ -51,8 +51,8 @@ month = currentDateAndTime[5:7]
 day = currentDateAndTime[8:10]
 currentTime = currentDateAndTime[11:19] #don't call this "time" it will conflict with time library
 numberOfSamples = 10
-sensorMinValues = [7750] #most moist
-sensorMaxValues = [17725] #least moist
+sensorMinValues = [7750, 7750] #most moist
+sensorMaxValues = [17725, 17725] #least moist
 class Plant:
   def __init__(self, ID, sensorMinValue, sensorMaxValue):
     self.ID = ID
@@ -63,7 +63,9 @@ class Plant:
     self.value = None
     self.voltage = None
     self.DBRef = None
-plants = [Plant(i, sensorMinValues[i], sensorMaxValues[i])] for i in range(0, len(sensorMinValues))
+plants = []
+for i in range(0, len(sensorMinValues)):
+    plants.append(Plant(i, sensorMinValues[i], sensorMaxValues[i]))
 
 #FIREBASE SETUP
 #authenticate to the database
@@ -80,7 +82,8 @@ i2c = busio.I2C(board.SCL, board.SDA)
 ads = ADS.ADS1115(i2c)
 # Create a single ended input on each channel 0
 possibleChannelInputs = [ADS.P0, ADS.P1, ADS.P2, ADS.P3]
-plants[i].channel = AnalogIn(ads, possibleChannelInputs[i]) for i in range(0, len(plants))
+for i in range(0, len(plants)):
+    plants[i].channel = AnalogIn(ads, possibleChannelInputs[i])
 #MAIN CODE
 #collect samples and find average
 for plant in plants:
