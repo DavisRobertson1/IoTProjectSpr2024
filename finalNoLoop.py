@@ -80,7 +80,7 @@ rootRef = db.reference("/")
 i2c = busio.I2C(board.SCL, board.SDA)
 # Create the ADC object using the I2C bus
 ads = ADS.ADS1115(i2c)
-# Create a single ended input on each channel 0
+# Create a single ended input on each channel
 possibleChannelInputs = [ADS.P0, ADS.P1, ADS.P2, ADS.P3]
 for i in range(0, len(plants)):
     plants[i].channel = AnalogIn(ads, possibleChannelInputs[i])
