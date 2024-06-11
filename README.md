@@ -1,4 +1,4 @@
-# Setting up the Raspberry Pi
+![image](https://github.com/DavisRobertson1/IoTProjectSpr2024/assets/46424307/d53d9592-e855-41a3-af9b-92129f980534)# Setting up the Raspberry Pi
 To recreate the system, first connect the capacitive soil moisture sensors, ADC, and Raspberry Pi such that the ADC communicates to the Raspberry Pi via I2C and the sensors analog outputs are connected to the ADC Analog inputs.
 Ensure that each of the required packages are installed on your machine or in a virtual environment which is activated in the launcher.sh file that also runs the python program. The Python file "finalNoLoop.py" includes each of the necessary packages.
 Then, the crontab job must be created. Use 'sudo crontab -e' to open the crontab configuration file and at the bottom of the file, add a line similar to this (this example will run the launcher.sh every 2 minutes as long as the Raspberry Pi has power):
@@ -9,6 +9,21 @@ Lastly, ensure that you have a credentials.json file with the necessary Firebase
 
 # Firebase
 Create a Firebase project and enable Realtime Database
+
+# Zapier
+Recreate these two Zapier apps.
+For the first app, duplicate the app so there's one app for each sensor in your system. Change the Firebase database paths referenced in the app actions accordingly. The condition for each Pushover action towards the bottom should succeed if the moisture value is too low or too high. 
+<img src="/images/zapier-app-1.png" height="500"/>
+<img src="/images/zapier-app-2.png" height="500"/>
+
+Create a Zapier table, fill Field 1 with the sensor IDs in your Firebase database, e.g. 0, 1, etc.
+<img src="/images/zapier-table.png" height="500"/>
+
+# Pushover
+Add any phones that should receive the notifications to Pushover.
+<img src="/images/pushover.png" height="500"/>
+
+Download Pushover iOS app from App Store and login.
 
 # Setting up the Xcode project
 
