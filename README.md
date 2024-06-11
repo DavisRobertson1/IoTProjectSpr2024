@@ -8,10 +8,10 @@
 3. Connect an iPhone device to your MacBook via cable
 
 4. Enable Developer Mode on your iPhone
-![](/images/image2.jpg)
+![](/images/image2.png)
 
 5. Select your iPhone as the run destination
-![](/images/image3.jpg)
+![](/images/image3.png)
 
 6. Run
 
