@@ -13,14 +13,17 @@ Create a Firebase project and enable Realtime Database
 # Zapier
 Recreate these two Zapier apps.
 For the first app, duplicate the app so there's one app for each sensor in your system. Change the Firebase database paths referenced in the app actions accordingly. The condition for each Pushover action towards the bottom should succeed if the moisture value is too low or too high. 
+<br />
 <img src="/images/zapier-app-1.png" height="500"/>
 <img src="/images/zapier-app-2.png" height="500"/>
 
 Create a Zapier table, fill Field 1 with the sensor IDs in your Firebase database, e.g. 0, 1, etc.
+<br />
 <img src="/images/zapier-table.png"/>
 
 # Pushover
 Add any phones that should receive the notifications to Pushover.
+<br />
 <img src="/images/pushover.png"/>
 
 Download Pushover iOS app from App Store and login.
