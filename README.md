@@ -3,15 +3,15 @@
 1. Open xcode-project/IoT_Project in Xcode
 
 2. Change the Team and Bundle Identifier values to your own values
-![](/images/image1.jpg)
+<img src="/images/image1.jpg" height="200"/>
 
 3. Connect an iPhone device to your MacBook via cable
 
 4. Enable Developer Mode on your iPhone
-![](/images/image2.png)
+<img src="/images/image2.png" height="200"/>
 
 5. Select your iPhone as the run destination
-![](/images/image3.png)
+<img src="/images/image1.png" height="200"/>
 
 6. Run
 
