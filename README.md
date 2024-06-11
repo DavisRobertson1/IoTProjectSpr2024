@@ -33,17 +33,17 @@ Download Pushover iOS app from App Store and login.
 1. Open xcode-project/IoT_Project in Xcode
 
 2. Change the Team and Bundle Identifier values to your own values
-<img src="/images/image1.jpg" height="500"/>
+<img src="/images/image2.png" height="500"/>
 
 3. Replace the GoogleService-Info.plist file with the provided in your Firebase project console
 
 4. Connect an iPhone device to your MacBook via cable
 
 5. Enable Developer Mode on your iPhone
-<img src="/images/image2.png" height="500"/>
+<img src="/images/image3.png" height="500"/>
 
 6. Select your iPhone as the run destination
-<img src="/images/image3.png" height="500"/>
+<img src="/images/image1.jpg" height="500"/>
 
 7. Run
 
