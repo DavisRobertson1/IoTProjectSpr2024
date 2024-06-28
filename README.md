@@ -1,5 +1,6 @@
 # System Architecture Overview
 <img src="/images/systemArchitectureOverview.png" height="500"/>
+
 # Setting up the Raspberry Pi
 To recreate the system, first connect the capacitive soil moisture sensors, ADC, and Raspberry Pi such that the ADC communicates to the Raspberry Pi via I2C and the sensors analog outputs are connected to the ADC Analog inputs.
 Ensure that each of the required packages are installed on your machine or in a virtual environment which is activated in the launcher.sh file that also runs the python program. The Python file "finalNoLoop.py" includes each of the necessary packages.
